@@ -8,4 +8,13 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="CardStyle" >
+        <!-- Customize your theme here. -->
+        <item name="android:layout_height">100dp</item>
+        <item name="android:layout_width">100dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:src">@drawable/card</item>
+    </style>
+
+
 </resources>
