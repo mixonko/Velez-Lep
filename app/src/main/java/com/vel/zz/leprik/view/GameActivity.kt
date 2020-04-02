@@ -2,6 +2,7 @@ package com.vel.zz.leprik.view
 
 import android.os.Bundle
 import android.os.PersistableBundle
+import android.view.View
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.SeekBar
@@ -10,7 +11,49 @@ import com.vel.zz.leprik.R
 import com.vel.zz.leprik.contracts.GameContract
 import com.vel.zz.leprik.presenter.GamePresenter
 
-class GameActivity: AppCompatActivity(), GameContract {
+class GameActivity : AppCompatActivity(), GameContract {
+    override fun showYouWin() {
+        youWin.visibility = View.VISIBLE
+    }
+
+    override fun showFalce(vararg imageView: ImageView) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun showTrue(vararg imageView: ImageView) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun showImage(imageView: ImageView, imageCard: Int) {
+        var image = 0
+        when (imageCard) {
+            1 -> image = image1
+            2 -> image = image2
+            3 -> image = image3
+            4 -> image = image4
+            5 -> image = image5
+            6 -> image = image6
+            7 -> image = image7
+            8 -> image = image8
+            9 -> image = image9
+            10 -> image = image10
+            11 -> image = image11
+            12 -> image = image12
+        }
+        imageView.animate()
+            .rotationY(90F)
+            .setDuration(duratin)
+            .withEndAction {
+                imageView.rotationY = 90F
+                imageView.setImageResource(image)
+                imageView.animate()
+                    .rotationY(0F)
+                    .setDuration(duratin)
+                    .start()
+            }.start()
+    }
+
+    private val duratin = 200L
 
     private lateinit var presenter: GamePresenter
 
@@ -56,20 +99,20 @@ class GameActivity: AppCompatActivity(), GameContract {
     private lateinit var imageView45: ImageView
     private lateinit var imageView46: ImageView
 
-    private var imageList = mutableListOf(1,2,3,4,5,6,7,8,9,10,11,12)
-
-
     override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
         super.onCreate(savedInstanceState, persistentState)
         setContentView(R.layout.activity_game)
 
         presenter = GamePresenter(this)
-  
+
+        getLifecycle().addObserver(presenter)
+
         init()
 
         setTag()
 
         setOnClickListener()
+
     }
 
     private fun setTag() {
@@ -100,33 +143,153 @@ class GameActivity: AppCompatActivity(), GameContract {
     }
 
     private fun setOnClickListener() {
-        imageView11.setOnClickListener { presenter.onImageViewClick(imageView11.getTag() as Int, imageView11) }
-        imageView12.setOnClickListener { presenter.onImageViewClick(imageView12.getTag() as Int, imageView12) }
-        imageView13.setOnClickListener { presenter.onImageViewClick(imageView13.getTag() as Int, imageView13) }
-        imageView14.setOnClickListener { presenter.onImageViewClick(imageView14.getTag() as Int, imageView14) }
-        imageView15.setOnClickListener { presenter.onImageViewClick(imageView15.getTag() as Int, imageView15) }
-        imageView16.setOnClickListener { presenter.onImageViewClick(imageView16.getTag() as Int, imageView16) }
-        imageView21.setOnClickListener { presenter.onImageViewClick(imageView21.getTag() as Int, imageView21) }
-        imageView22.setOnClickListener { presenter.onImageViewClick(imageView22.getTag() as Int, imageView22) }
-        imageView23.setOnClickListener { presenter.onImageViewClick(imageView23.getTag() as Int, imageView23) }
-        imageView24.setOnClickListener { presenter.onImageViewClick(imageView24.getTag() as Int, imageView24) }
-        imageView25.setOnClickListener { presenter.onImageViewClick(imageView25.getTag() as Int, imageView25) }
-        imageView26.setOnClickListener { presenter.onImageViewClick(imageView26.getTag() as Int, imageView26) }
-        imageView31.setOnClickListener { presenter.onImageViewClick(imageView31.getTag() as Int, imageView31) }
-        imageView32.setOnClickListener { presenter.onImageViewClick(imageView32.getTag() as Int, imageView32) }
-        imageView33.setOnClickListener { presenter.onImageViewClick(imageView33.getTag() as Int, imageView33) }
-        imageView34.setOnClickListener { presenter.onImageViewClick(imageView34.getTag() as Int, imageView34) }
-        imageView35.setOnClickListener { presenter.onImageViewClick(imageView35.getTag() as Int, imageView35) }
-        imageView36.setOnClickListener { presenter.onImageViewClick(imageView36.getTag() as Int, imageView36) }
-        imageView41.setOnClickListener { presenter.onImageViewClick(imageView41.getTag() as Int, imageView41) }
-        imageView42.setOnClickListener { presenter.onImageViewClick(imageView42.getTag() as Int, imageView42) }
-        imageView43.setOnClickListener { presenter.onImageViewClick(imageView43.getTag() as Int, imageView43) }
-        imageView44.setOnClickListener { presenter.onImageViewClick(imageView44.getTag() as Int, imageView44) }
-        imageView45.setOnClickListener { presenter.onImageViewClick(imageView45.getTag() as Int, imageView45) }
-        imageView46.setOnClickListener { presenter.onImageViewClick(imageView46.getTag() as Int, imageView46) }
+        imageView11.setOnClickListener {
+            presenter.onImageViewClick(
+                imageView11.getTag() as Int,
+                imageView11
+            )
+        }
+        imageView12.setOnClickListener {
+            presenter.onImageViewClick(
+                imageView12.getTag() as Int,
+                imageView12
+            )
+        }
+        imageView13.setOnClickListener {
+            presenter.onImageViewClick(
+                imageView13.getTag() as Int,
+                imageView13
+            )
+        }
+        imageView14.setOnClickListener {
+            presenter.onImageViewClick(
+                imageView14.getTag() as Int,
+                imageView14
+            )
+        }
+        imageView15.setOnClickListener {
+            presenter.onImageViewClick(
+                imageView15.getTag() as Int,
+                imageView15
+            )
+        }
+        imageView16.setOnClickListener {
+            presenter.onImageViewClick(
+                imageView16.getTag() as Int,
+                imageView16
+            )
+        }
+        imageView21.setOnClickListener {
+            presenter.onImageViewClick(
+                imageView21.getTag() as Int,
+                imageView21
+            )
+        }
+        imageView22.setOnClickListener {
+            presenter.onImageViewClick(
+                imageView22.getTag() as Int,
+                imageView22
+            )
+        }
+        imageView23.setOnClickListener {
+            presenter.onImageViewClick(
+                imageView23.getTag() as Int,
+                imageView23
+            )
+        }
+        imageView24.setOnClickListener {
+            presenter.onImageViewClick(
+                imageView24.getTag() as Int,
+                imageView24
+            )
+        }
+        imageView25.setOnClickListener {
+            presenter.onImageViewClick(
+                imageView25.getTag() as Int,
+                imageView25
+            )
+        }
+        imageView26.setOnClickListener {
+            presenter.onImageViewClick(
+                imageView26.getTag() as Int,
+                imageView26
+            )
+        }
+        imageView31.setOnClickListener {
+            presenter.onImageViewClick(
+                imageView31.getTag() as Int,
+                imageView31
+            )
+        }
+        imageView32.setOnClickListener {
+            presenter.onImageViewClick(
+                imageView32.getTag() as Int,
+                imageView32
+            )
+        }
+        imageView33.setOnClickListener {
+            presenter.onImageViewClick(
+                imageView33.getTag() as Int,
+                imageView33
+            )
+        }
+        imageView34.setOnClickListener {
+            presenter.onImageViewClick(
+                imageView34.getTag() as Int,
+                imageView34
+            )
+        }
+        imageView35.setOnClickListener {
+            presenter.onImageViewClick(
+                imageView35.getTag() as Int,
+                imageView35
+            )
+        }
+        imageView36.setOnClickListener {
+            presenter.onImageViewClick(
+                imageView36.getTag() as Int,
+                imageView36
+            )
+        }
+        imageView41.setOnClickListener {
+            presenter.onImageViewClick(
+                imageView41.getTag() as Int,
+                imageView41
+            )
+        }
+        imageView42.setOnClickListener {
+            presenter.onImageViewClick(
+                imageView42.getTag() as Int,
+                imageView42
+            )
+        }
+        imageView43.setOnClickListener {
+            presenter.onImageViewClick(
+                imageView43.getTag() as Int,
+                imageView43
+            )
+        }
+        imageView44.setOnClickListener {
+            presenter.onImageViewClick(
+                imageView44.getTag() as Int,
+                imageView44
+            )
+        }
+        imageView45.setOnClickListener {
+            presenter.onImageViewClick(
+                imageView45.getTag() as Int,
+                imageView45
+            )
+        }
+        imageView46.setOnClickListener {
+            presenter.onImageViewClick(
+                imageView46.getTag() as Int,
+                imageView46
+            )
+        }
     }
 
-    private fun init(){
+    private fun init() {
 
         imageView11 = findViewById(R.id.imageView11)
         imageView12 = findViewById(R.id.imageView12)
