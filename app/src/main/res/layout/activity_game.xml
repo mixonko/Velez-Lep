@@ -55,6 +55,8 @@
         <include
             android:id="@+id/you_win"
             layout="@layout/you_win"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:visibility="invisible"/>
 
 </FrameLayout>

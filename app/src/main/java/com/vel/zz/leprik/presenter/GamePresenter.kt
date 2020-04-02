@@ -8,7 +8,7 @@ import com.vel.zz.leprik.contracts.GameContract
 
 class GamePresenter(val view: GameContract) : LifecycleObserver {
 
-    private var click = 0
+    private var itsFirstClick = true
     private var endGame: Int = 0
     private lateinit var firstImage: ImageView
     private lateinit var secondImage: ImageView
@@ -16,8 +16,7 @@ class GamePresenter(val view: GameContract) : LifecycleObserver {
     private var secondCard: Int = 0
 
     private var cardList =
-        mutableListOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22)
-
+        mutableListOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24)
 
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
@@ -28,26 +27,25 @@ class GamePresenter(val view: GameContract) : LifecycleObserver {
     }
 
     fun onImageViewClick(i: Int, imageView: ImageView) {
-        if (click == 0){
-            click = 1
+        if (itsFirstClick) {
+            itsFirstClick = false
 
             firstImage = imageView
 
             firstCard = getCard(i)
-            if (firstCard > 12){
+            if (firstCard > 12) {
                 firstCard -= 12
             }
 
             showImage(firstImage, firstCard)
-
         }
-        else if (click == 1){
-            click = 2
+        else {
+            itsFirstClick = true
 
             secondImage = imageView
 
             secondCard = getCard(i)
-            if (secondCard > 12){
+            if (secondCard > 12) {
                 secondCard -= 12
             }
 
@@ -56,46 +54,41 @@ class GamePresenter(val view: GameContract) : LifecycleObserver {
             calculate()
 
         }
-        else{
-            click = 0
-        }
 
     }
 
-    private fun getCard(i: Int)= cardList[i]
+    private fun getCard(i: Int) = cardList[i]
 
-    private fun calculate(){
-        if(firstCard == secondCard){
-            showTrue()
+    private fun calculate() {
+        if (firstCard == secondCard) {
+//            showTrue()
             endGame++
             chechEndGame()
-        }else{
-            showFalce()
-            firstCard = 0
-            secondCard = 0
-            click = 0
+            view.showYouWin()
+
+        } else {
+//            showFalce()
         }
     }
 
     private fun chechEndGame() {
-        if (endGame == 12){
+        if (endGame == 12) {
             view.showYouWin()
         }
     }
 
-    private fun showImage(imageView: ImageView, card: Int){
+    private fun showImage(imageView: ImageView, card: Int) {
         view.showImage(imageView, card)
     }
 
 
-    private fun showTrue(){
+    private fun showTrue() {
         view.showTrue(firstImage, secondImage)
     }
 
-    private fun showFalce(){
+    private fun showFalce() {
         view.showFalce(firstImage, secondImage)
     }
-
 
 
 }

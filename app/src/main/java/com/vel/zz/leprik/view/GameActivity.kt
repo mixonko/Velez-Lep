@@ -12,46 +12,6 @@ import com.vel.zz.leprik.contracts.GameContract
 import com.vel.zz.leprik.presenter.GamePresenter
 
 class GameActivity : AppCompatActivity(), GameContract {
-    override fun showYouWin() {
-        youWin.visibility = View.VISIBLE
-    }
-
-    override fun showFalce(vararg imageView: ImageView) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun showTrue(vararg imageView: ImageView) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun showImage(imageView: ImageView, imageCard: Int) {
-        var image = 0
-        when (imageCard) {
-            1 -> image = image1
-            2 -> image = image2
-            3 -> image = image3
-            4 -> image = image4
-            5 -> image = image5
-            6 -> image = image6
-            7 -> image = image7
-            8 -> image = image8
-            9 -> image = image9
-            10 -> image = image10
-            11 -> image = image11
-            12 -> image = image12
-        }
-        imageView.animate()
-            .rotationY(90F)
-            .setDuration(duratin)
-            .withEndAction {
-                imageView.rotationY = 90F
-                imageView.setImageResource(image)
-                imageView.animate()
-                    .rotationY(0F)
-                    .setDuration(duratin)
-                    .start()
-            }.start()
-    }
 
     private val duratin = 200L
 
@@ -99,8 +59,8 @@ class GameActivity : AppCompatActivity(), GameContract {
     private lateinit var imageView45: ImageView
     private lateinit var imageView46: ImageView
 
-    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
-        super.onCreate(savedInstanceState, persistentState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game)
 
         presenter = GamePresenter(this)
@@ -318,6 +278,48 @@ class GameActivity : AppCompatActivity(), GameContract {
 
         youWin = findViewById(R.id.you_win)
 
-        time = findViewById(R.id.time)
+        time = findViewById(R.id.time_bar)
     }
+
+    override fun showYouWin() {
+        youWin.visibility = View.VISIBLE
+    }
+
+    override fun showFalce(vararg imageView: ImageView) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun showTrue(vararg imageView: ImageView) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun showImage(imageView: ImageView, imageCard: Int) {
+        var image = 0
+        when (imageCard) {
+            1 -> image = image1
+            2 -> image = image2
+            3 -> image = image3
+            4 -> image = image4
+            5 -> image = image5
+            6 -> image = image6
+            7 -> image = image7
+            8 -> image = image8
+            9 -> image = image9
+            10 -> image = image10
+            11 -> image = image11
+            12 -> image = image12
+        }
+        imageView.animate()
+            .rotationY(90F)
+            .setDuration(duratin)
+            .withEndAction {
+                imageView.rotationY = -90F
+                imageView.setImageResource(image)
+                imageView.animate()
+                    .rotationY(0F)
+                    .setDuration(duratin)
+                    .start()
+            }.start()
+    }
+
 }
