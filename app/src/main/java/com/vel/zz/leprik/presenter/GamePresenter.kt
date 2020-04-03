@@ -15,6 +15,9 @@ class GamePresenter(val view: GameContract) : LifecycleObserver {
     private var firstCard: Int = 0
     private var secondCard: Int = 0
 
+    private val duration = 200L
+    private val delayMillis = 800L
+
     private var cardList =
         mutableListOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24)
 
@@ -31,23 +34,21 @@ class GamePresenter(val view: GameContract) : LifecycleObserver {
             itsFirstClick = false
 
             firstImage = imageView
+            view.setDisable(firstImage)
 
             firstCard = getCard(i)
-            if (firstCard > 12) {
-                firstCard -= 12
-            }
 
             showImage(firstImage, firstCard)
+
         }
         else {
             itsFirstClick = true
 
             secondImage = imageView
+//            view.setDisable(secondImage)
+            view.setAllDisable()
 
             secondCard = getCard(i)
-            if (secondCard > 12) {
-                secondCard -= 12
-            }
 
             showImage(secondImage, secondCard)
 
@@ -57,38 +58,52 @@ class GamePresenter(val view: GameContract) : LifecycleObserver {
 
     }
 
-    private fun getCard(i: Int) = cardList[i]
-
     private fun calculate() {
+
+        if (firstCard > 12) {
+            firstCard -= 12
+        }
+
+        if (secondCard > 12) {
+            secondCard -= 12
+        }
+
         if (firstCard == secondCard) {
-//            showTrue()
+            showTrue()
             endGame++
             chechEndGame()
-            view.showYouWin()
-
         } else {
-//            showFalce()
+            showFalce()
         }
+    }
+
+    private fun showTrue() {
+        view.showTrue(firstImage, secondImage, duration = duration, delayMillis = delayMillis)
+        view.setAllEnable(delayMillis)
+    }
+
+    private fun showFalce() {
+        view.showFalce(firstImage, secondImage, duration = duration, delayMillis = delayMillis)
+        view.hideImages(firstImage, secondImage, duration = duration, delayMillis = delayMillis * 2)
+        view.setAllEnable(delayMillis * 2)
+    }
+
+    fun onYouWinClick() {
+        view.startNewGame()
     }
 
     private fun chechEndGame() {
         if (endGame == 12) {
-            view.showYouWin()
+            view.showYouWin(delayMillis)
         }
     }
 
     private fun showImage(imageView: ImageView, card: Int) {
-        view.showImage(imageView, card)
+
+        view.showImage(imageView, card, duration)
     }
 
-
-    private fun showTrue() {
-        view.showTrue(firstImage, secondImage)
-    }
-
-    private fun showFalce() {
-        view.showFalce(firstImage, secondImage)
-    }
+    private fun getCard(i: Int) = cardList[i]
 
 
 }

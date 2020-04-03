@@ -1,19 +1,138 @@
 package com.vel.zz.leprik.view
 
+import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.os.PersistableBundle
 import android.view.View
+import android.view.Window
+import android.view.WindowManager
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.SeekBar
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.vel.zz.leprik.R
 import com.vel.zz.leprik.contracts.GameContract
 import com.vel.zz.leprik.presenter.GamePresenter
 
 class GameActivity : AppCompatActivity(), GameContract {
+    override fun setDisable(imageView: ImageView) {
+        imageView.isEnabled = false
+    }
 
-    private val duratin = 200L
+    override fun hideImages(vararg imageView: ImageView, duration: Long, delayMillis: Long) {
+        Handler().postDelayed({
+            imageView.forEach {
+                it.animate()
+                    .rotationY(90F)
+                    .setDuration(duration)
+                    .withEndAction {
+                        it.rotationY = -90F
+                        it.setImageResource(card)
+                        it.animate()
+                            .rotationY(0F)
+                            .setDuration(duration)
+                            .start()
+                    }.start()
+
+            }
+        }, delayMillis)
+    }
+
+    override fun showFalce(vararg imageView: ImageView, duration: Long, delayMillis: Long) {
+        Handler().postDelayed({
+            imageView.forEach {
+                it.animate()
+                    .rotationY(40f)
+                    .setDuration(duration)
+                    .withEndAction(
+                        Runnable() {
+                            it.setRotationY(-40f)
+                            it.animate().withLayer()
+                                .rotationY(0f)
+                                .setDuration(duration)
+                                .start()
+                        }
+                    ).start()
+            }
+        }, delayMillis)
+    }
+
+    override fun showTrue(vararg imageView: ImageView, duration: Long, delayMillis: Long) {
+        Handler().postDelayed({
+            imageView.forEach {
+                it.animate()
+                    .scaleXBy(0.2f)
+                    .scaleYBy(0.2f)
+                    .setDuration(duration)
+                    .withEndAction {
+                        it.animate()
+                            .scaleX(0.001f)
+                            .scaleY(0.001f)
+                            .setDuration(duration)
+                            .start()
+                    }.start()
+            }
+        }, delayMillis)
+    }
+
+    override fun setAllEnable(delayMillis: Long) {
+        Handler().postDelayed({
+            imageView11.isEnabled = true
+            imageView12.isEnabled = true
+            imageView13.isEnabled = true
+            imageView14.isEnabled = true
+            imageView15.isEnabled = true
+            imageView16.isEnabled = true
+            imageView21.isEnabled = true
+            imageView22.isEnabled = true
+            imageView23.isEnabled = true
+            imageView24.isEnabled = true
+            imageView25.isEnabled = true
+            imageView26.isEnabled = true
+            imageView31.isEnabled = true
+            imageView32.isEnabled = true
+            imageView33.isEnabled = true
+            imageView34.isEnabled = true
+            imageView35.isEnabled = true
+            imageView36.isEnabled = true
+            imageView41.isEnabled = true
+            imageView42.isEnabled = true
+            imageView43.isEnabled = true
+            imageView44.isEnabled = true
+            imageView45.isEnabled = true
+            imageView46.isEnabled = true
+        }, delayMillis)
+    }
+
+    override fun setAllDisable() {
+        imageView11.isEnabled = false
+        imageView12.isEnabled = false
+        imageView13.isEnabled = false
+        imageView14.isEnabled = false
+        imageView15.isEnabled = false
+        imageView16.isEnabled = false
+        imageView21.isEnabled = false
+        imageView22.isEnabled = false
+        imageView23.isEnabled = false
+        imageView24.isEnabled = false
+        imageView25.isEnabled = false
+        imageView26.isEnabled = false
+        imageView31.isEnabled = false
+        imageView32.isEnabled = false
+        imageView33.isEnabled = false
+        imageView34.isEnabled = false
+        imageView35.isEnabled = false
+        imageView36.isEnabled = false
+        imageView41.isEnabled = false
+        imageView42.isEnabled = false
+        imageView43.isEnabled = false
+        imageView44.isEnabled = false
+        imageView45.isEnabled = false
+        imageView46.isEnabled = false
+    }
+
 
     private lateinit var presenter: GamePresenter
 
@@ -33,6 +152,7 @@ class GameActivity : AppCompatActivity(), GameContract {
     private val image10 = R.drawable.ic_image10
     private val image11 = R.drawable.ic_image11
     private val image12 = R.drawable.ic_image12
+    private val card = R.drawable.card
 
     private lateinit var imageView11: ImageView
     private lateinit var imageView12: ImageView
@@ -61,6 +181,10 @@ class GameActivity : AppCompatActivity(), GameContract {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        requestWindowFeature(Window.FEATURE_NO_TITLE)
+        getWindow().setFlags(
+            WindowManager.LayoutParams.FLAG_FULLSCREEN,
+            WindowManager.LayoutParams.FLAG_FULLSCREEN)
         setContentView(R.layout.activity_game)
 
         presenter = GamePresenter(this)
@@ -247,6 +371,9 @@ class GameActivity : AppCompatActivity(), GameContract {
                 imageView46
             )
         }
+        youWin.setOnClickListener{
+            presenter.onYouWinClick()
+        }
     }
 
     private fun init() {
@@ -281,19 +408,13 @@ class GameActivity : AppCompatActivity(), GameContract {
         time = findViewById(R.id.time_bar)
     }
 
-    override fun showYouWin() {
-        youWin.visibility = View.VISIBLE
+    override fun showYouWin(delayMillis: Long) {
+        Handler().postDelayed({
+            youWin.visibility = View.VISIBLE
+        }, delayMillis)
     }
 
-    override fun showFalce(vararg imageView: ImageView) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun showTrue(vararg imageView: ImageView) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun showImage(imageView: ImageView, imageCard: Int) {
+    override fun showImage(imageView: ImageView, imageCard: Int, duration: Long) {
         var image = 0
         when (imageCard) {
             1 -> image = image1
@@ -308,18 +429,35 @@ class GameActivity : AppCompatActivity(), GameContract {
             10 -> image = image10
             11 -> image = image11
             12 -> image = image12
+            13 -> image = image1
+            14 -> image = image2
+            15 -> image = image3
+            16 -> image = image4
+            17 -> image = image5
+            18 -> image = image6
+            19 -> image = image7
+            20 -> image = image8
+            21 -> image = image9
+            22 -> image = image10
+            23 -> image = image11
+            24 -> image = image12
         }
         imageView.animate()
             .rotationY(90F)
-            .setDuration(duratin)
+            .setDuration(duration)
             .withEndAction {
                 imageView.rotationY = -90F
                 imageView.setImageResource(image)
                 imageView.animate()
                     .rotationY(0F)
-                    .setDuration(duratin)
+                    .setDuration(duration)
                     .start()
             }.start()
+    }
+
+    override fun startNewGame() {
+        startActivity(Intent(this, GameActivity::class.java))
+        finish()
     }
 
 }

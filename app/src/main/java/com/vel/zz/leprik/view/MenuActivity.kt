@@ -3,6 +3,8 @@ package com.vel.zz.leprik.view
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Window
+import android.view.WindowManager
 import android.widget.ImageView
 import com.vel.zz.leprik.R
 import com.vel.zz.leprik.contracts.MenuContract
@@ -16,6 +18,10 @@ class MenuActivity : AppCompatActivity(), MenuContract {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        requestWindowFeature(Window.FEATURE_NO_TITLE)
+        getWindow().setFlags(
+            WindowManager.LayoutParams.FLAG_FULLSCREEN,
+            WindowManager.LayoutParams.FLAG_FULLSCREEN)
         setContentView(R.layout.activity_menu)
 
         presenter = MenuPresenter(this)
