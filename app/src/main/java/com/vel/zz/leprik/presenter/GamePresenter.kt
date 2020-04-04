@@ -5,6 +5,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 import com.vel.zz.leprik.contracts.GameContract
+import java.util.*
 
 class GamePresenter(val view: GameContract) : LifecycleObserver {
 
@@ -19,13 +20,38 @@ class GamePresenter(val view: GameContract) : LifecycleObserver {
     private val delayMillis = 800L
 
     private var cardList =
-        mutableListOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24)
+        mutableListOf(
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24
+        )
 
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     fun cardsShuffle() {
 
-        //        Collections.shuffle(cardList)
+        Collections.shuffle(cardList)
 
     }
 
@@ -40,12 +66,10 @@ class GamePresenter(val view: GameContract) : LifecycleObserver {
 
             showImage(firstImage, firstCard)
 
-        }
-        else {
+        } else {
             itsFirstClick = true
 
             secondImage = imageView
-//            view.setDisable(secondImage)
             view.setAllDisable()
 
             secondCard = getCard(i)

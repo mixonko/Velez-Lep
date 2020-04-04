@@ -22,7 +22,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".view.GameActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="portrait"/>
         <activity android:name=".view.WebViewActivity"
             android:screenOrientation="landscape"/>
     </application>
