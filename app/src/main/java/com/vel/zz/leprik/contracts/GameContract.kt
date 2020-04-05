@@ -12,4 +12,8 @@ interface GameContract {
     fun setAllDisable()
     fun setDisable(imageView: ImageView)
     fun startNewGame()
+    fun showTryAgain()
+    fun startCountDownTimer(millisInFuture: Long)
+    fun stopCountDownTimer()
+
 }

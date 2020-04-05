@@ -23,6 +23,13 @@
         <ImageView android:id="@+id/imageView14"
             style="@style/CardStyle" />
 
+
+        <ImageView android:id="@+id/imageView15"
+            style="@style/CardStyle" />
+
+        <ImageView android:id="@+id/imageView16"
+            style="@style/CardStyle" />
+
     </LinearLayout>
 
     <LinearLayout
@@ -43,6 +50,12 @@
         <ImageView android:id="@+id/imageView24"
             style="@style/CardStyle" />
 
+
+        <ImageView android:id="@+id/imageView25"
+            style="@style/CardStyle" />
+
+        <ImageView android:id="@+id/imageView26"
+            style="@style/CardStyle" />
 
     </LinearLayout>
 
@@ -65,6 +78,12 @@
             style="@style/CardStyle" />
 
 
+        <ImageView android:id="@+id/imageView35"
+            style="@style/CardStyle" />
+
+        <ImageView android:id="@+id/imageView36"
+            style="@style/CardStyle" />
+
     </LinearLayout>
 
     <LinearLayout
@@ -85,41 +104,6 @@
         <ImageView android:id="@+id/imageView44"
             style="@style/CardStyle" />
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:orientation="horizontal"
-        android:layout_weight="1" >
-
-        <ImageView android:id="@+id/imageView15"
-            style="@style/CardStyle" />
-
-        <ImageView android:id="@+id/imageView16"
-            style="@style/CardStyle" />
-
-
-        <ImageView android:id="@+id/imageView25"
-            style="@style/CardStyle" />
-
-        <ImageView android:id="@+id/imageView26"
-            style="@style/CardStyle" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:orientation="horizontal"
-        android:layout_weight="1" >
-
-
-        <ImageView android:id="@+id/imageView35"
-            style="@style/CardStyle" />
-
-        <ImageView android:id="@+id/imageView36"
-            style="@style/CardStyle" />
 
         <ImageView android:id="@+id/imageView45"
             style="@style/CardStyle" />
@@ -128,5 +112,6 @@
             style="@style/CardStyle" />
 
     </LinearLayout>
+
 
 </LinearLayout>

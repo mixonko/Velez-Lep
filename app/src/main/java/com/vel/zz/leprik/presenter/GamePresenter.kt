@@ -19,43 +19,24 @@ class GamePresenter(val view: GameContract) : LifecycleObserver {
     private val duration = 200L
     private val delayMillis = 800L
 
+    private var timeIsRunning = false
+    private val millisInFuture = 80000L
+
     private var cardList =
-        mutableListOf(
-            1,
-            2,
-            3,
-            4,
-            5,
-            6,
-            7,
-            8,
-            9,
-            10,
-            11,
-            12,
-            13,
-            14,
-            15,
-            16,
-            17,
-            18,
-            19,
-            20,
-            21,
-            22,
-            23,
-            24
-        )
+        mutableListOf( 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24 )
 
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     fun cardsShuffle() {
-
         Collections.shuffle(cardList)
 
     }
 
     fun onImageViewClick(i: Int, imageView: ImageView) {
+        if (!timeIsRunning){
+            view.startCountDownTimer(millisInFuture)
+            timeIsRunning = true
+        }
         if (itsFirstClick) {
             itsFirstClick = false
 
@@ -118,16 +99,25 @@ class GamePresenter(val view: GameContract) : LifecycleObserver {
 
     private fun chechEndGame() {
         if (endGame == 12) {
+            view.stopCountDownTimer()
             view.showYouWin(delayMillis)
         }
     }
 
     private fun showImage(imageView: ImageView, card: Int) {
-
         view.showImage(imageView, card, duration)
     }
 
     private fun getCard(i: Int) = cardList[i]
+
+    fun timeIsOver() {
+        view.showTryAgain()
+        view.setAllDisable()
+    }
+
+    fun onYouLoseClick() {
+        view.startNewGame()
+    }
 
 
 }

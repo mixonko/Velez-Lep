@@ -1,7 +1,6 @@
 package com.vel.zz.leprik.view
 
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.view.Window
 import android.view.WindowManager
 import android.webkit.WebView
@@ -10,8 +9,8 @@ import com.vel.zz.leprik.R
 import com.vel.zz.leprik.other.MyWebViewClient
 
 class WebViewActivity: AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
-        super.onCreate(savedInstanceState, persistentState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         requestWindowFeature(Window.FEATURE_NO_TITLE)
         getWindow().setFlags(
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
